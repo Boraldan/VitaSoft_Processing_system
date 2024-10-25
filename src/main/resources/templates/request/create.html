@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание новой заявки</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Создать новую заявку</h1>
+
+
+    <!-- Форма для создания заявки -->
+    <form th:action="@{/user/request/create}" th:object="${request}" method="post" novalidate>
+        <div class="form-group">
+            <label for="content">Текст заявки</label>
+
+            <!-- Поле для ввода текста заявки с обработкой ошибок -->
+            <textarea class="form-control"
+                      th:classappend="${#fields.hasErrors('content')} ? 'is-invalid' : 'is-valid'"
+                      id="content"
+                      th:field="*{content}"
+                      rows="5"
+                      placeholder="Введите текст заявки"></textarea>
+
+            <!-- Вывод ошибки валидации для поля -->
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a th:href="@{/account}" class="btn btn-secondary">Вернуться в личный кабинет</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

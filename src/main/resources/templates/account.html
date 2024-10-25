@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Личный кабинет</h1>
+
+    <!-- Проверка на наличие сообщения об ошибке -->
+    <div class="alert alert-danger" th:if="${errorMessage}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Проверка на наличие пользователя -->
+    <div th:if="${person}">
+        <div class="card">
+            <div class="card-header">
+                Информация о пользователе
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Имя: <span th:text="${person.name}"></span></h5>
+                <p class="card-text">Email: <span th:text="${person.email}"></span></p>
+                <p class="card-text">Пароль: <span th:text="${person.password}"></span></p>
+                <a th:href="@{/account/edit}" class="btn btn-primary">Редактировать</a>
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Выйти</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Добавление кнопок для ролей -->
+        <div class="mt-3">
+            <!-- Кнопка для пользователей (Переход на пользовательскую страницу) -->
+            <a th:if="${person.userRole}" th:href="@{/user/requests}" class="btn btn-info">Панель пользователя</a>
+
+            <!-- Кнопка для операторов (Переход на страницу оператора) -->
+            <a th:if="${person.operatorRole}" th:href="@{/operator/requests}" class="btn btn-warning">Панель оператора</a>
+
+            <!-- Кнопка для администраторов (Переход на страницу администратора) -->
+            <a th:if="${person.adminRole}" th:href="@{/admin/users}" class="btn btn-danger">Панель администратора</a>
+        </div>
+    </div>
+
+    <!-- Сообщение, если пользователь не найден -->
+    <div th:if="${#lists.isEmpty(person)}">
+        <div class="alert alert-warning">
+            <p>Пользователь не найден. Пожалуйста, попробуйте снова.</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

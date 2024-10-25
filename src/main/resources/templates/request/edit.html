@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Редактировать заявку</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Редактировать заявку</h1>
+
+    <!-- Форма для редактирования заявки -->
+    <form th:action="@{/user/request/edit/{id}(id=${request.requestId})}" th:object="${request}" method="post" novalidate>
+        <!-- Скрытое поле     -->
+
+
+        <!-- Поле для статуса заявки -->
+        <div class="form-group">
+            <label for="status">Статус</label>
+            <input type="text" class="form-control" id="status" th:value="${request.status}" readonly>
+        </div>
+
+        <!-- Поле для даты создания -->
+        <div class="form-group">
+            <label for="createdDate">Дата создания</label>
+            <input type="text" class="form-control" id="createdDate" th:value="${#temporals.format(request.createdDate, 'dd-MM-yyyy HH:mm')}" readonly>
+        </div>
+
+        <!-- Поле для ввода текста заявки с обработкой ошибок -->
+        <div class="form-group">
+            <label for="content">Текст заявки</label>
+            <textarea class="form-control"
+                      th:classappend="${#fields.hasErrors('content')} ? 'is-invalid' : 'is-valid'"
+                      id="content"
+                      th:field="*{content}"
+                      rows="5"
+                      placeholder="Введите текст заявки"></textarea>
+
+            <!-- Вывод ошибки валидации для поля -->
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        </div>
+
+        <!-- Кнопки сохранения и возврата -->
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+        <a th:href="@{/user/requests}" class="btn btn-secondary">Назад к списку</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

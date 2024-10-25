@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Просмотр заявки</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Просмотр заявки</h1>
+
+    <!-- Форма для просмотра заявки (без возможности редактирования) -->
+    <form>
+        <!-- Поле для статуса заявки -->
+        <div class="form-group">
+            <label for="status">Статус</label>
+            <input type="text" class="form-control" id="status" th:value="${request.status}" readonly>
+        </div>
+
+        <!-- Поле для даты создания -->
+        <div class="form-group">
+            <label for="createdDate">Дата создания</label>
+            <input type="text" class="form-control" id="createdDate" th:value="${#temporals.format(request.createdDate, 'dd-MM-yyyy HH:mm')}" readonly>
+        </div>
+
+        <!-- Поле для отображения текста заявки -->
+        <div class="form-group">
+            <label for="content">Текст заявки</label>
+            <textarea class="form-control"
+                      id="content"
+                      rows="5"
+                      th:field="*{request.content}"
+                      readonly></textarea>
+        </div>
+
+        <!-- Кнопка возврата -->
+        <a th:href="@{/user/requests}" class="btn btn-secondary">Назад к списку</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
