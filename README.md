@@ -26,6 +26,7 @@
 - Thymeleaf
 - Spring Validation
 - Docker, Docker Compose
+- Lombok
 
 ## Запуск базы данных в Docker
 
