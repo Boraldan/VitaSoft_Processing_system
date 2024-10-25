@@ -12,6 +12,20 @@
 - Операторы могут просматривать, принимать и отклонять заявки.
 - Администраторы могут управлять пользователями и назначать им роли.
 - В проекте протестированы несколько методов с тестами, где используется библиотека Mockito.
+- 
+### Обзор используемых технологий:
+
+- Spring Framework
+- Spring Boot
+- RestTemplate
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- SQL, HQL
+- PostgreSQL
+- Thymeleaf
+- Spring Validation
+- Docker, Docker Compose
 
 ## Запуск базы данных в Docker
 
@@ -38,5 +52,6 @@ services:
 
 volumes:
   postgres_data:
+
 
 
